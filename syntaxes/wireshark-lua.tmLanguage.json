@@ -6,7 +6,7 @@
     { "include": "source.lua" },
     {
       "name": "support.class.wireshark",
-      "match": "\\b(Proto|Dissector|Field|Listener|Tap|TreeItem|Tvb|Pinfo|Column|Expert|ProtoField|Field.new|Proto.new|Listener.new|tap|register_postdissector|register_init)\\b"
+      "match": "\\b(get_version|set_plugin_info|format_date|format_time|get_preference|set_preference|reset_preference|apply_preferences|report_failure|register_stat_cmd_arg|gui_enabled|register_menu|register_packet_menu|new_dialog|retap_packets|copy_to_clipboard|open_capture_file|get_filter|set_filter|get_color_filter_slot|set_color_filter_slot|register_postdissector|dissect_tcp_pdus|all_field_infos|wtap_file_type_subtype_description|wtap_file_type_subtype_name|wtap_name_to_file_type_subtype|wtap_pcap_file_type_subtype|wtap_pcap_nsec_file_type_subtype|wtap_pcapng_file_type_subtype|register_filehandler|deregister_filehandler|gcry_cipher_algo_info|gcry_cipher_algo_name|gcry_cipher_map_name|gcry_cipher_mode_from_oid|gcry_cipher_get_algo_keylen|gcry_cipher_get_algo_blklen|ProgDlg|TextWindow|Dissector|DissectorTable|Pref|Prefs|Proto|ProtoExpert|ProtoField|Field|FieldInfo|Address|Column|Columns|Conversation|NSTime|Pinfo|PrivateTable|ByteArray|Tvb|TvbRange|TreeItem|Listener|Dumper|PseudoHeader|CaptureInfo|CaptureInfoConst|File|FileHandler|FrameInfo|FrameInfoConst|Dir|Int64|UInt64|Struct|GcryptCipher|rex_pcre2|bit)\\b"
     }
   ],
   "fileTypes": ["lua"],

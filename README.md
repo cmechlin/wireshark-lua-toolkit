@@ -83,6 +83,19 @@ For more info:
 - [VSCode Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
 - [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
 
+## Additional Features
+
+### Planned/Upcoming
+
+- **Completion Suggestions:**
+
+  - The extension will provide context-aware completion suggestions for Wireshark Lua API symbols (e.g., `Proto`, `Field`, `Listener`, etc.) in `.lua` files.
+  - This will help users quickly insert correct API calls and reduce typos.
+
+- **Hover Providers:**
+  - Hovering over Wireshark API symbols in `.lua` files will display helpful documentation and type information.
+  - This will make it easier to learn and use the Wireshark Lua API without leaving VSCode.
+
 ## License
 
 MIT License
