@@ -19,6 +19,10 @@
       {
         "command": "wireshark-lua-dissector.helloWorld",
         "title": "Hello World"
+      },
+      {
+        "command": "wireshark-lua-dissector.runRepl",
+        "title": "Wireshark: Run Lua Script in REPL"
       }
     ],
     "grammars": [
@@ -31,9 +35,21 @@
     "completionProvider": [
       {
         "language": "lua",
-        "triggerCharacters": [".", ":"]
+        "triggerCharacters": [
+          ".",
+          ":"
+        ]
       }
-    ]
+    ],
+    "configuration": {
+      "properties": {
+        "wiresharkLua.tsharkPath": {
+          "type": "string",
+          "default": "C:\\Program Files\\Wireshark\\tshark.exe",
+          "description": "Path to tshark.exe"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
