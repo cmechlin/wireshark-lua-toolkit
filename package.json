@@ -18,6 +18,13 @@
         "command": "wireshark-lua-dissector.helloWorld",
         "title": "Hello World"
       }
+    ],
+    "grammars": [
+      {
+        "language": "lua",
+        "scopeName": "source.wireshark-lua",
+        "path": "./syntaxes/wireshark-lua.tmLanguage.json"
+      }
     ]
   },
   "scripts": {

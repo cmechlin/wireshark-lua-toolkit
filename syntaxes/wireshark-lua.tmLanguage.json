@@ -1,0 +1,14 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Wireshark Lua",
+  "scopeName": "source.wireshark-lua",
+  "patterns": [
+    { "include": "source.lua" },
+    {
+      "name": "support.class.wireshark",
+      "match": "\\b(Proto|Dissector|Field|Listener|Tap|TreeItem|Tvb|Pinfo|Column|Expert|ProtoField|Field.new|Proto.new|Listener.new|tap|register_postdissector|register_init)\\b"
+    }
+  ],
+  "fileTypes": ["lua"],
+  "uuid": "b1e1e1e1-0000-4000-8000-000000000001"
+}
