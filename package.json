@@ -47,6 +47,16 @@
           "type": "string",
           "default": "C:\\Program Files\\Wireshark\\tshark.exe",
           "description": "Path to tshark.exe"
+        },
+        "wiresharkLua.captureFile": {
+          "type": "string",
+          "default": "",
+          "description": "Path to the capture file to use with tshark -r. Leave blank to prompt each time."
+        },
+        "wiresharkLua.autoRunReplOnActivate": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically run the Wireshark REPL when the extension activates. Useful for development/debug."
         }
       }
     }

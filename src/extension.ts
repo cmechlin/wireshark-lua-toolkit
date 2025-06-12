@@ -46,17 +46,45 @@ export function activate(context: vscode.ExtensionContext) {
         "tsharkPath",
         "C:\\Program Files\\Wireshark\\tshark.exe"
       );
+      let captureFile = config.get<string>("captureFile", "");
+      if (!captureFile) {
+        const fileUri = await vscode.window.showOpenDialog({
+          canSelectMany: false,
+          openLabel: "Select capture file for tshark -r",
+          filters: { "PCAP Files": ["pcap", "pcapng"], "All Files": ["*"] },
+        });
+        if (!fileUri || fileUri.length === 0) {
+          vscode.window.showWarningMessage(
+            "No capture file selected. Aborting REPL."
+          );
+          return;
+        }
+        captureFile = fileUri[0].fsPath;
+      }
       const output = vscode.window.createOutputChannel("Wireshark REPL");
       output.show(true);
-      output.appendLine(`Running: ${tsharkPath} -X lua_script:${scriptPath}`);
+      output.appendLine(
+        `Running: ${tsharkPath} -r ${captureFile} -X lua_script:${scriptPath}`
+      );
       if (!existsSync(tsharkPath)) {
         const msg = `tshark.exe not found at: ${tsharkPath}`;
         output.appendLine(`[error] ${msg}`);
         vscode.window.showErrorMessage(msg);
         return;
       }
+      if (!existsSync(captureFile)) {
+        const msg = `Capture file not found: ${captureFile}`;
+        output.appendLine(`[error] ${msg}`);
+        vscode.window.showErrorMessage(msg);
+        return;
+      }
       try {
-        const proc = spawn(tsharkPath, ["-X", `lua_script:${scriptPath}`]);
+        const proc = spawn(tsharkPath, [
+          "-r",
+          captureFile,
+          "-X",
+          `lua_script:${scriptPath}`,
+        ]);
         proc.stdout.on("data", (data) => output.append(data.toString()));
         proc.stderr.on("data", (data) =>
           output.append(`[stderr] ${data.toString()}`)
@@ -85,6 +113,34 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   context.subscriptions.push(runRepl);
+
+  // Diagnostic: log environment variables and debug detection
+  const debugLog = vscode.window.createOutputChannel("Wireshark Debug");
+  debugLog.appendLine("process.env:");
+  Object.entries(process.env).forEach(([k, v]) =>
+    debugLog.appendLine(`${k}=${v}`)
+  );
+  debugLog.appendLine(`vscode.env.appHost: ${vscode.env.appHost}`);
+  debugLog.appendLine(
+    `process.env.VSCODE_DEBUG_MODE: ${process.env.VSCODE_DEBUG_MODE}`
+  );
+  debugLog.appendLine(
+    `process.env.VSCODE_LAUNCHER_PORT: ${process.env.VSCODE_LAUNCHER_PORT}`
+  );
+  debugLog.appendLine(`vscode.env.appName: ${vscode.env.appName}`);
+  // Automatically run the REPL if the setting is enabled
+  const autoRun = vscode.workspace
+    .getConfiguration("wiresharkLua")
+    .get<boolean>("autoRunReplOnActivate", false);
+  debugLog.appendLine(`wiresharkLua.autoRunReplOnActivate: ${autoRun}`);
+  if (autoRun) {
+    debugLog.appendLine(
+      "autoRunReplOnActivate is true, running REPL automatically..."
+    );
+    setTimeout(() => {
+      vscode.commands.executeCommand("wireshark-lua-dissector.runRepl");
+    }, 1000);
+  }
 
   const hoverProvider = vscode.languages.registerHoverProvider("lua", {
     provideHover(document, position) {
