@@ -10,7 +10,9 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:lua"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
@@ -24,6 +26,12 @@
         "language": "lua",
         "scopeName": "source.wireshark-lua",
         "path": "./syntaxes/wireshark-lua.tmLanguage.json"
+      }
+    ],
+    "completionProvider": [
+      {
+        "language": "lua",
+        "triggerCharacters": [".", ":"]
       }
     ]
   },
