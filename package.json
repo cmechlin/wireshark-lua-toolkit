@@ -4,6 +4,11 @@
   "description": "A Visual Studio Code extension to streamline development of Wireshark Lua dissector scripts.",
   "license": "MIT",
   "author": "Curtis Mechling <cmechlin@gmail.com>",
+  "publisher": "CurtisMechling",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cmechlin/wireshark-lua-toolkit.git"
+  },
   "engines": {
     "vscode": "^1.101.0"
   },
