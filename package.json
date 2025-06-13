@@ -1,7 +1,7 @@
 {
-  "name": "wireshark-lua-dissector",
+  "name": "wireshark-lua-toolkit",
   "version": "0.0.1",
-  "description": "A Visual Studio Code extension to streamline development of Wireshark Lua dissector scripts on Windows.",
+  "description": "A Visual Studio Code extension to streamline development of Wireshark Lua dissector scripts.",
   "license": "MIT",
   "author": "Curtis Mechling <cmechlin@gmail.com>",
   "engines": {
@@ -17,12 +17,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "wireshark-lua-dissector.helloWorld",
-        "title": "Hello World"
-      },
-      {
-        "command": "wireshark-lua-dissector.runRepl",
-        "title": "Wireshark: Run Lua Script in REPL"
+        "command": "wireshark-lua-toolkit.runRepl",
+        "title": "Wireshark: Run Lua Script in Tshark"
       }
     ],
     "grammars": [
@@ -70,7 +66,9 @@
         },
         "wiresharkLua.tsharkEFields": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "default": [],
           "description": "List of field names to extract with tshark -e <field>. If any are provided, -T <tsharkTFields> and -e <field> are added to the tshark command."
         }
@@ -88,12 +86,14 @@
   "devDependencies": {
     "@types/mocha": "^10.0.10",
     "@types/node": "^24.0.1",
+    "@types/sinon": "^17.0.4",
     "@types/vscode": "^1.100.0",
     "@typescript-eslint/eslint-plugin": "^8.34.0",
     "@typescript-eslint/parser": "^8.34.0",
     "@vscode/test-cli": "^0.0.11",
     "@vscode/test-electron": "^2.5.2",
     "eslint": "^9.28.0",
+    "sinon": "^20.0.0",
     "typescript": "^5.8.3"
   }
 }

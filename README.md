@@ -1,5 +1,13 @@
 # Wireshark Lua Dissector VSCode Extension
 
+![VSCode](https://img.shields.io/badge/VSCode-1.101.0-blue?logo=visualstudiocode)
+![Node.js](https://img.shields.io/badge/Node.js-22.x-brightgreen?logo=node.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-blue?logo=typescript)
+![ESLint](https://img.shields.io/badge/ESLint-9.28.0-purple?logo=eslint)
+![Mocha](https://img.shields.io/badge/Mocha-10.x-brown?logo=mocha)
+![Sinon](https://img.shields.io/badge/Sinon-20.x-lightgrey?logo=sinon)
+![Wireshark](https://img.shields.io/badge/Wireshark-4.x-blue?logo=wireshark)
+
 A Visual Studio Code extension to streamline development of Wireshark Lua dissector scripts on Windows.
 
 ## Features
@@ -95,6 +103,20 @@ For more info:
 - **Hover Providers:**
   - Hovering over Wireshark API symbols in `.lua` files will display helpful documentation and type information.
   - This will make it easier to learn and use the Wireshark Lua API without leaving VSCode.
+
+## Testing & Help Needed
+
+- The current test suite covers command registration, configuration, REPL logic (with mocks), error notifications, and completion/hover providers.
+- **Help Wanted:** The testing coverage should be expanded, especially for more advanced REPL scenarios and edge cases.
+- **REPL Testing:** Additional help is needed to improve and automate REPL testing. If you have experience with integration testing for VSCode extensions or with mocking child process interactions, your contributions are welcome!
+
+Please open an issue or pull request if you can help expand the test coverage or improve REPL-related tests.
+
+## Contributors
+
+- Curtis Mechling ([cmechlin@gmail.com](mailto:cmechlin@gmail.com))
+
+If you contribute to this project, please add your name here via pull request!
 
 ## License
 

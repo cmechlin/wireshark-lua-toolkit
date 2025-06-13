@@ -10,33 +10,22 @@ import { existsSync } from "fs";
 export function activate(context: vscode.ExtensionContext) {
   // Use the console to output diagnostic information (console.log) and errors (console.error)
   // This line of code will only be executed once when your extension is activated
+  const extensionName = "Wireshark Lua Toolkit";
+  const extensionVersion = "0.0.1"; // Update if you bump version in package.json
   console.log(
-    'Congratulations, your extension "wireshark-lua-dissector" is now active!'
+    `${extensionName} v${extensionVersion} activated: Advanced Wireshark Lua scripting, REPL, and API IntelliSense ready.`
   );
-
-  // The command has been defined in the package.json file
-  // Now provide the implementation of the command with registerCommand
-  // The commandId parameter must match the command field in package.json
-  const disposable = vscode.commands.registerCommand(
-    "wireshark-lua-dissector.helloWorld",
-    () => {
-      // The code you place here will be executed every time your command is executed
-      // Display a message box to the user
-      vscode.window.showInformationMessage(
-        "Hello World from wireshark lua dissector!"
-      );
-    }
+  vscode.window.showInformationMessage(
+    `${extensionName} v${extensionVersion} is now active! Develop, test, and debug Wireshark Lua dissectors with ease.`
   );
-
-  context.subscriptions.push(disposable);
 
   const runRepl = vscode.commands.registerCommand(
-    "wireshark-lua-dissector.runRepl",
+    "wireshark-lua-toolkit.runRepl",
     async () => {
       const editor = vscode.window.activeTextEditor;
       if (!editor || editor.document.languageId !== "lua") {
         vscode.window.showErrorMessage(
-          "Open a Lua script to run in the Wireshark REPL"
+          "Open a Lua script to run in the Tshark REPL."
         );
         return;
       }
@@ -61,7 +50,9 @@ export function activate(context: vscode.ExtensionContext) {
         }
         captureFile = fileUri[0].fsPath;
       }
-      const output = vscode.window.createOutputChannel("Wireshark REPL");
+      const output = vscode.window.createOutputChannel(
+        "Wireshark Lua Toolkit REPL"
+      );
       output.show(true);
       output.appendLine(
         `Running: ${tsharkPath} -r ${captureFile} -X lua_script:${scriptPath}`
@@ -90,25 +81,25 @@ export function activate(context: vscode.ExtensionContext) {
           );
         }
         // Handle -T and -e flags
-        const tsharkTFields = config.get<string>('tsharkTFields', 'fields')
-        const tsharkEFields = config.get<string[]>('tsharkEFields', [])
-        let args = ["-r", captureFile, "-X", `lua_script:${scriptPath}`]
+        const tsharkTFields = config.get<string>("tsharkTFields", "fields");
+        const tsharkEFields = config.get<string[]>("tsharkEFields", []);
+        let args = ["-r", captureFile, "-X", `lua_script:${scriptPath}`];
         if (tsharkEFields && tsharkEFields.length > 0) {
-          args.push('-T', tsharkTFields)
-          tsharkEFields.forEach(f => args.push('-e', f))
-          output.appendLine(`[info] Added -T ${tsharkTFields} and -e fields: ${tsharkEFields.join(', ')}`)
+          args.push("-T", tsharkTFields);
+          tsharkEFields.forEach((f) => args.push("-e", f));
+          output.appendLine(
+            `[info] Added -T ${tsharkTFields} and -e fields: ${tsharkEFields.join(
+              ", "
+            )}`
+          );
         }
-        const proc = spawn(
-          tsharkPath,
-          args,
-          { env }
-        );
+        const proc = spawn(tsharkPath, args, { env });
         proc.stdout.on("data", (data) => output.append(data.toString()));
         proc.stderr.on("data", (data) => {
-          const msg = data.toString()
-          output.append(`[stderr] ${msg}`)
+          const msg = data.toString();
+          output.append(`[stderr] ${msg}`);
           if (msg.includes("Some fields aren't valid")) {
-            vscode.window.showErrorMessage(`tshark: ${msg.trim()}`)
+            vscode.window.showErrorMessage(`tshark: ${msg.trim()}`);
           }
         });
         proc.on("error", (err) => {
@@ -137,7 +128,9 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(runRepl);
 
   // Diagnostic: log environment variables and debug detection
-  const debugLog = vscode.window.createOutputChannel("Wireshark Debug");
+  const debugLog = vscode.window.createOutputChannel(
+    "Wireshark Lua Toolkit Debug"
+  );
   debugLog.appendLine("process.env:");
   Object.entries(process.env).forEach(([k, v]) =>
     debugLog.appendLine(`${k}=${v}`)
@@ -160,7 +153,7 @@ export function activate(context: vscode.ExtensionContext) {
       "autoRunReplOnActivate is true, running REPL automatically..."
     );
     setTimeout(() => {
-      vscode.commands.executeCommand("wireshark-lua-dissector.runRepl");
+      vscode.commands.executeCommand("wireshark-lua-toolkit.runRepl");
     }, 1000);
   }
 
