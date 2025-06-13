@@ -57,6 +57,22 @@
           "type": "boolean",
           "default": false,
           "description": "Automatically run the Wireshark REPL when the extension activates. Useful for development/debug."
+        },
+        "wiresharkLua.debugLuaEnv": {
+          "type": "boolean",
+          "default": false,
+          "description": "Set the WIRESHARK_DEBUG_LUA environment variable when running the REPL for verbose Lua error output."
+        },
+        "wiresharkLua.tsharkTFields": {
+          "type": "string",
+          "default": "fields",
+          "description": "Value for the -T flag to tshark (e.g., 'fields'). Used if any -e fields are specified."
+        },
+        "wiresharkLua.tsharkEFields": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": [],
+          "description": "List of field names to extract with tshark -e <field>. If any are provided, -T <tsharkTFields> and -e <field> are added to the tshark command."
         }
       }
     }

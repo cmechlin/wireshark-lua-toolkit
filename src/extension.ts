@@ -79,16 +79,38 @@ export function activate(context: vscode.ExtensionContext) {
         return;
       }
       try {
-        const proc = spawn(tsharkPath, [
-          "-r",
-          captureFile,
-          "-X",
-          `lua_script:${scriptPath}`,
-        ]);
-        proc.stdout.on("data", (data) => output.append(data.toString()));
-        proc.stderr.on("data", (data) =>
-          output.append(`[stderr] ${data.toString()}`)
+        // Set WIRESHARK_DEBUG_LUA if enabled in settings
+        const debugLuaEnv = config.get<boolean>("debugLuaEnv", false);
+        const env = debugLuaEnv
+          ? { ...process.env, WIRESHARK_DEBUG_LUA: "1" }
+          : process.env;
+        if (debugLuaEnv) {
+          output.appendLine(
+            "[info] WIRESHARK_DEBUG_LUA=1 set for tshark process"
+          );
+        }
+        // Handle -T and -e flags
+        const tsharkTFields = config.get<string>('tsharkTFields', 'fields')
+        const tsharkEFields = config.get<string[]>('tsharkEFields', [])
+        let args = ["-r", captureFile, "-X", `lua_script:${scriptPath}`]
+        if (tsharkEFields && tsharkEFields.length > 0) {
+          args.push('-T', tsharkTFields)
+          tsharkEFields.forEach(f => args.push('-e', f))
+          output.appendLine(`[info] Added -T ${tsharkTFields} and -e fields: ${tsharkEFields.join(', ')}`)
+        }
+        const proc = spawn(
+          tsharkPath,
+          args,
+          { env }
         );
+        proc.stdout.on("data", (data) => output.append(data.toString()));
+        proc.stderr.on("data", (data) => {
+          const msg = data.toString()
+          output.append(`[stderr] ${msg}`)
+          if (msg.includes("Some fields aren't valid")) {
+            vscode.window.showErrorMessage(`tshark: ${msg.trim()}`)
+          }
+        });
         proc.on("error", (err) => {
           output.appendLine(`[error] ${err}`);
           vscode.window.showErrorMessage(`Failed to launch tshark.exe: ${err}`);
