@@ -1,5 +1,7 @@
 # Wireshark Lua Dissector VSCode Extension
 
+> **BETA**: This extension is currently in beta. Features and APIs may change before the 1.0 release.
+
 ![VSCode](https://img.shields.io/badge/VSCode-1.101.0-blue?logo=visualstudiocode)
 ![Node.js](https://img.shields.io/badge/Node.js-22.x-brightgreen?logo=node.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-blue?logo=typescript)

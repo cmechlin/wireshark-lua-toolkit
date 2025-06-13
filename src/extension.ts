@@ -11,7 +11,7 @@ export function activate(context: vscode.ExtensionContext) {
   // Use the console to output diagnostic information (console.log) and errors (console.error)
   // This line of code will only be executed once when your extension is activated
   const extensionName = "Wireshark Lua Toolkit";
-  const extensionVersion = "0.0.1"; // Update if you bump version in package.json
+  const extensionVersion = "0.1.0"; // Update if you bump version in package.json
   console.log(
     `${extensionName} v${extensionVersion} activated: Advanced Wireshark Lua scripting, REPL, and API IntelliSense ready.`
   );

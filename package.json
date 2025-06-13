@@ -1,6 +1,6 @@
 {
   "name": "wireshark-lua-toolkit",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A Visual Studio Code extension to streamline development of Wireshark Lua dissector scripts.",
   "license": "MIT",
   "author": "Curtis Mechling <cmechlin@gmail.com>",
