@@ -6,3 +6,4 @@ package-lock.json
 .github/
 .vscode-test/
 out/test/
+PAT
